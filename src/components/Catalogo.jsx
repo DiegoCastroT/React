@@ -1,20 +1,25 @@
 import React from 'react';
 import {useState, useEffect} from "react";
+import '../App.css'; // Ajusta la ruta según la estructura del proyecto
 
 const Catalogo = () => {
     const [productos, setProductos] = useState([])
     const [productosCarrito, setProductosCarrito] = useState([])
+    const [isShowing, setIsShowing] = useState(false)
 
     useEffect(() => {
         fetch('/public/articulos_navideños.json')
             .then(res => res.json())
             .then(data => setProductos(data))
-            .catch(error => console.error('Error al cargar los datos:', error));
     }, [])
 
     const addToShopping = (producto) => {
-        setProductosCarrito([...productosCarrito,producto])
+        setProductosCarrito([...productosCarrito, producto])
     }
+
+    const toggleCarrito = () => {
+        setIsShowing(!isShowing);
+    };
 
     return (
         <div>
@@ -26,12 +31,19 @@ const Catalogo = () => {
                     </li>
                 ))}
             </ul>
+            <button onClick={toggleCarrito}>
+                {isShowing ? 'Ocultar Carrito' : 'Mostrar Carrito'}
+            </button>
             <ul>
-                {productosCarrito.map((producto) => (
-                    <li key={producto.id}>
-                        {producto.nombre}
-                    </li>
-                ))}
+                {isShowing && (
+                    <ul>
+                        {productosCarrito.map((producto) => (
+                            <li key={producto.id}>
+                                {producto.nombre}
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </ul>
         </div>
     )

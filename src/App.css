@@ -1,42 +1,78 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Estilo general */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #eef2f7; /* Color de fondo claro */
+  color: #333; /* Color de texto principal para buen contraste */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Contenedor principal */
+div {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff; /* Fondo blanco para buen contraste */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd; /* Línea sutil para destacar el contenedor */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Lista de productos */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 12px 16px;
+  background-color: #f9fafb; /* Fondo gris claro */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  color: #333; /* Asegura el contraste del texto */
+  font-size: 16px; /* Tamaño legible */
 }
 
-.card {
-  padding: 2em;
+/* Botón para añadir productos */
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.read-the-docs {
-  color: #888;
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Título del carrito */
+h2 {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #222; /* Texto oscuro */
+  text-align: left;
+}
+
+/* Estilo de productos en el carrito */
+ul:last-of-type li {
+  background-color: #d4edda; /* Verde claro */
+  border: 1px solid #c3e6cb; /* Borde más definido */
+}
+
+/* Mejora para accesibilidad y foco */
+button:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
 }

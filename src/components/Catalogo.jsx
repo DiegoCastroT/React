@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from "react";
-import '../App.css'; // Ajusta la ruta según la estructura del proyecto
+import '../App.css';
 
 const Catalogo = () => {
     const [productos, setProductos] = useState([])
@@ -14,11 +14,52 @@ const Catalogo = () => {
     }, [])
 
     const addToShopping = (producto) => {
-        setProductosCarrito([...productosCarrito, producto])
+        const exists = productosCarrito.find(item => item.id === producto.id)
+
+        if (exists) {
+            setProductosCarrito(productosCarrito.map((item) => {
+                if (item.id === producto.id) {
+                    return {...item, cantidad: item.cantidad + 1};
+                }
+                return item; // De lo contrario, dejamos el producto igual
+            }))
+        } else {
+            setProductosCarrito([...productosCarrito, {...producto, cantidad: 1}]);
+        }
     }
 
     const toggleCarrito = () => {
         setIsShowing(!isShowing);
+    };
+
+    const renderCarrito = () => {
+        return (
+            <>
+                <button onClick={toggleCarrito}>
+                    {isShowing ? 'Ocultar Carrito' : 'Mostrar Carrito'}
+                </button>
+                {isShowing && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <h1>Carrito</h1>
+                            <ul className="carrito">
+                                {productosCarrito.map((producto) => (
+                                    <li key={producto.id}>
+                                        {producto.nombre}
+                                        <div>
+                                            {producto.cantidad}
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                            <button onClick={toggleCarrito}>
+                                {isShowing ? 'Ocultar Carrito' : 'Mostrar Carrito'}
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </>
+        );
     };
 
     return (
@@ -26,25 +67,13 @@ const Catalogo = () => {
             <ul>
                 {productos.map((producto) => (
                     <li key={producto.id}>
-                        {producto.nombre}
+                        <h2> {producto.nombre}</h2>
+                        <p>{producto.precio}</p>
                         <button onClick={() => addToShopping(producto)}>Add</button>
                     </li>
                 ))}
             </ul>
-            <button onClick={toggleCarrito}>
-                {isShowing ? 'Ocultar Carrito' : 'Mostrar Carrito'}
-            </button>
-            <ul>
-                {isShowing && (
-                    <ul>
-                        {productosCarrito.map((producto) => (
-                            <li key={producto.id}>
-                                {producto.nombre}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </ul>
+            {renderCarrito()}
         </div>
     )
 }

@@ -3,6 +3,7 @@ import {useState, useEffect} from "react";
 import '../App.css';
 
 const Catalogo = () => {
+
     const [productos, setProductos] = useState([])
     const [productosCarrito, setProductosCarrito] = useState([])
     const [isShowing, setIsShowing] = useState(false)
@@ -21,7 +22,7 @@ const Catalogo = () => {
                 if (item.id === producto.id) {
                     return {...item, cantidad: item.cantidad + 1};
                 }
-                return item; // De lo contrario, dejamos el producto igual
+                return item;
             }))
         } else {
             setProductosCarrito([...productosCarrito, {...producto, cantidad: 1}]);
